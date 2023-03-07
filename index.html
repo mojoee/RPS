@@ -9,9 +9,9 @@
 <body>
     <script>
         let Choices = {
-        1: "Rock",
-        2: "Paper",
-        3: "Scissors"
+        1: "rock",
+        2: "paper",
+        3: "scissors"
     };
 
         function getComputerChoice(){
@@ -19,7 +19,47 @@
             return Choices[choice]
         }
 
-        console.log(getComputerChoice())
+        function getPlayerChoice(){
+            let choice = prompt("Please choose your Weapon! Choices: Rock, Paper, Scissors");
+            return choice.toLowerCase()
+        }
+
+        function playOneRound(){
+            let choiceComputer = getComputerChoice()
+            let choicePlayer = getPlayerChoice()
+            if (choiceComputer===choicePlayer){
+                return "Draw"
+            }
+            else if (choiceComputer==="rock" && choicePlayer==="paper"){
+                return "You Win! Paper beats Rock"
+
+            }
+            else if (choiceComputer==="paper" && choicePlayer==="rock"){
+                return "You loose! Paper beats Rock"
+
+            }
+            else if (choiceComputer==="scissors" && choicePlayer==="rock"){
+                return "You win! Rock beats Scissors"
+
+            }
+            else if (choiceComputer==="rock" && choicePlayer==="scissors"){
+                return "You loose! Rock beats Scissors"
+
+            }
+            else if (choiceComputer==="paper" && choicePlayer==="scissors"){
+                return "You win! Scissors beats Paper"
+
+            }
+            else if (choiceComputer==="scissors" && choicePlayer==="paper"){
+                return "You loose! Scissors beats Paper"
+            }
+            else {
+                return "Something unexpected happened!"
+            }
+
+        }
+
+        console.log(playOneRound())
     </script>
     
 </body>
