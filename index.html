@@ -27,6 +27,8 @@
         function playOneRound(){
             let choiceComputer = getComputerChoice()
             let choicePlayer = getPlayerChoice()
+            console.log("Computer chose:"+choiceComputer)
+            console.log("You chose:"+choicePlayer)
             if (choiceComputer===choicePlayer){
                 return "Draw"
             }
@@ -56,10 +58,29 @@
             else {
                 return "Something unexpected happened!"
             }
-
+        }
+        function Game(){
+            games=5
+            let playerScore = 0
+            let computerScore = 0
+            for (let i = 0; i < games; i++) {
+            result = playOneRound();
+            if (result.includes("Draw")){
+                continue
+            }
+            else if (result.includes("win")){
+                playerScore+=1
+            }
+            else{
+                computerScore+=1
+            }
+            }
+            console.log("The final score is:")
+            console.log("Computer: " + computerScore)
+            console.log("Player: " + playerScore)
         }
 
-        console.log(playOneRound())
+        Game()
     </script>
     
 </body>
