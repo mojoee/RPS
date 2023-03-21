@@ -7,12 +7,34 @@
     <title>Document</title>
 </head>
 <body>
+    <button>Rock</button>
+    <button>Paper</button>
+    <button>Scissors</button>
+    <div id="round">Current Round: 0</div>
+    <div id="currentChoicePlayer">Current Choice Player: None</div>
+    <div id="currentChoiceComputer">Current Choice Computer: None</div>
+    <div id="playerScore">Player Score: 0</div>
+    <div id="computerScore">Computer Score: 0</div>
+    <div id="winner"></div>
     <script>
         let Choices = {
         1: "rock",
         2: "paper",
         3: "scissors"
     };
+        let playerScore = 0;
+        let computerScore = 0;
+        let currentRound = 0;
+
+        // buttons is a node list. It looks and acts much like an array.
+        const buttons = document.querySelectorAll('button');
+
+        // we use the .forEach method to iterate through each button
+        buttons.forEach((button) => {
+
+        // and for each one we add a 'click' listener
+        button.addEventListener('click', () => Game(button), false);
+        });
 
         function getComputerChoice(){
             let choice = Math.floor(Math.random()*3) +1
@@ -24,11 +46,10 @@
             return choice.toLowerCase()
         }
 
-        function playOneRound(){
+        function playOneRound(choicePlayer){
             let choiceComputer = getComputerChoice()
-            let choicePlayer = getPlayerChoice()
-            console.log("Computer chose:"+choiceComputer)
-            console.log("You chose:"+choicePlayer)
+            document.getElementById("currentChoicePlayer").innerHTML = `Player's current choice: ${choicePlayer}`;
+            document.getElementById("currentChoiceComputer").innerHTML = `Computer's current choice: ${choiceComputer}`;
             if (choiceComputer===choicePlayer){
                 return "Draw"
             }
@@ -59,14 +80,19 @@
                 return "Something unexpected happened!"
             }
         }
-        function Game(){
-            games=5
-            let playerScore = 0
-            let computerScore = 0
-            for (let i = 0; i < games; i++) {
-            result = playOneRound();
+        function Reset(){
+            currentRound=0;
+            computerScore=0;
+            playerScore=0;
+        }
+        
+        function Game(button){
+            let choicePlayer = button.innerHTML.toLowerCase()
+            result = playOneRound(choicePlayer);
+            currentRound+=1
             if (result.includes("Draw")){
-                continue
+                playerScore+=1
+                computerScore+=1
             }
             else if (result.includes("win")){
                 playerScore+=1
@@ -74,13 +100,22 @@
             else{
                 computerScore+=1
             }
+            document.getElementById("round").innerHTML = `Current Round: ${currentRound}`;
+            document.getElementById("playerScore").innerHTML = `Player Score: ${playerScore}`;
+            document.getElementById("computerScore").innerHTML = `Computer Score: ${computerScore}`;
+
+            if(playerScore===5){
+                document.getElementById("winner").innerHTML = `The winner is the Player!!!`;
+                Reset()
             }
-            console.log("The final score is:")
-            console.log("Computer: " + computerScore)
-            console.log("Player: " + playerScore)
+
+            if(computerScore===5){
+                document.getElementById("winner").innerHTML = `The winner is the Computer!!!`;
+                Reset()
+            }
         }
 
-        Game()
+
     </script>
     
 </body>
